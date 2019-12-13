@@ -1,0 +1,29 @@
+# instalar nodejs
+# instalar ionic y cordova
+npm install -g ionic
+
+# crear una nueva app empleando una plantilla en blanco
+ionic start spring-boot-mysql-ionic blank
+
+Integrate your new app with Cordova to target native iOS and Android?
+y
+Install the free Ionic Pro SDK and connect your app? (Y/n)
+n
+
+# acceder a la carpeta del proyecto recien creado
+cd spring-boot-mysql-ionic
+
+# Ejecutar la app
+ionic serve
+
+# crear una nueva página 
+ionic g page productoadd
+
+# editar el archivo /src/app/app.module.ts
+# para importar la nueva página
+
+import { productoAdd } from '../pages/productoadd/productoadd';
+
+
+# crear el proveedor para acceso a los datos vía http
+ionic g provider database

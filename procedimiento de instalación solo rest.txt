@@ -1,0 +1,40 @@
+* instalar jdk version 8 (con la 10 no funciona)
+
+* Descomprimir el archivo maven en C:, para que quede así:
+C:\apache-maven-3.5.2-bin
+en su interior deberá contener las carpetas:
+- C:\apache-maven-3.5.2-bin\bin
+                           \boot
+                           \conf
+
+* agregar la ruta C:\apache-maven-3.5.2-bin\bin en la variable de entorno PATH
+  en el explorador de windows "propiedades de Equipo" Configuración avanzada 
+  del sistema/ variables de entorno/ lista inferior "variables del sistema", 
+  buscar la variable PATH y Editar, agregar al campo VALOR la ruta: 
+  ;C:\apache-maven-3.5.2-bin\bin
+  y ACEPTAR
+
+* Crear la carpeta C:\appsArmando (Armando deberá ser cambiado por su nombre)
+  descomprimir el archivo:  spring-boot-mysql.zip en esta carpeta
+
+* Ejecutar en Heidi o mysql workbench el archivo demo.sql encontrado en 
+  C:\appsArmando\spring-boot-mysql (para crear su base de datos demo)
+
+* Modificar con cualquier editor de textos, el archivo 
+  C:\appsArmando\spring-boot-mysql\src\main\resources\application.properties
+  para establecer su cuenta de usuario y password de base de datos que corresponda 
+  con su servidor y guardar los cambios
+
+
+EJECUTAR LAS APLICACIONES POR PRIMERA VEZ (SE REQUIERE CONEXION A INTERNET)
+----------------------------------------------------------------------------------
+* Acceder vía MSDOS a la ruta: C:\appsArmando\spring-boot-mysql
+ y ejecutar: 
+  mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8990
+
+ (se comenzarán a descargar dependencias desde internet)
+ (Al finalizar la descarga, se iniciará la aplicación web, montandose un servidor web
+  , lo que permitirá probar la webapp, 
+  mantener abierta la ventana de MSDOS, hasta que se desee cerrar la aplicación)
+
+* Abrir un navegador web y acceder a: localhost:8990/api/productos
