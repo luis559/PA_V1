@@ -31,6 +31,24 @@ INSERT INTO `persona` (`id`, `nombre`) VALUES
 	(17, 'Pablo Marmol');
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 
+-- Volcando estructura para tabla demo.personal
+CREATE TABLE IF NOT EXISTS `personal` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `cargo` varchar(255) DEFAULT NULL,
+  `sueldo` varchar(255) DEFAULT NULL,
+  `edad` varchar(255) DEFAULT NULL,
+  `celular` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla demo.personal: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `personal` DISABLE KEYS */;
+INSERT INTO `personal` (`id`, `created_at`, `nombre`, `cargo`, `sueldo`, `edad`, `celular`) VALUES
+	(1, NULL, 'luis', 'almacenista', '5,000', '20', '9191456325');
+/*!40000 ALTER TABLE `personal` ENABLE KEYS */;
+
 -- Volcando estructura para tabla demo.productos
 CREATE TABLE IF NOT EXISTS `productos` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -38,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `descripcion` varchar(255) DEFAULT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla demo.productos: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
@@ -55,14 +73,24 @@ CREATE TABLE IF NOT EXISTS `proveedores` (
   `estado` varchar(255) DEFAULT NULL,
   `numero` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla demo.proveedores: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla demo.proveedores: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `proveedores` DISABLE KEYS */;
 INSERT INTO `proveedores` (`id`, `created_at`, `nombre`, `estado`, `numero`) VALUES
 	(1, NULL, 'altos de chiapas ', 'chiapas', '9191234567'),
-	(2, '2019-12-13 04:45:45', 'ferresur', 'chiapas', '9191478523');
+	(2, '2019-12-13 04:45:45', 'ferresur', 'chiapas', '9191478523'),
+	(4, '2019-12-13 05:58:30', 'grijalva ', 'chiapas', '9191459687'),
+	(5, '2019-12-13 07:54:27', 'don bosco', 'chiapas', '9196732565');
 /*!40000 ALTER TABLE `proveedores` ENABLE KEYS */;
+
+-- Volcando estructura para procedimiento demo.sppersonalsearch
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sppersonalsearch`()
+BEGIN
+SELECT p.* FROM personal p where p.nombre like concat("%",arg,"%") or cargo like concat("%",arg,"%") or sueldo like concat("%",arg,"%") or edad like concat("%",arg,"%") or celular like concat("%",arg,"%");
+END//
+DELIMITER ;
 
 -- Volcando estructura para procedimiento demo.spproductosearch
 DELIMITER //
@@ -72,9 +100,9 @@ BEGIN
 END//
 DELIMITER ;
 
--- Volcando estructura para procedimiento demo.spproeedores
+-- Volcando estructura para procedimiento demo.spproveedores
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spproeedores`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spproveedores`()
 BEGIN
   SELECT p.* FROM proveedores p where p.nombre like concat("%",arg,"%") or estado like concat("%",arg,"%") or numero like concat("%",arg,"%");
 END//
