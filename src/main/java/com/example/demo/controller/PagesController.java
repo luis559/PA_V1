@@ -5,6 +5,7 @@ import com.example.demo.model.Proveedores;
 import com.example.demo.repository.PersonalRepository;
 import com.example.demo.repository.ProductoRepository;
 import com.example.demo.repository.ProveedoresRepository;
+import com.example.demo.repository.SucursalesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -29,6 +30,10 @@ public class PagesController {
         private Environment envs;
         @Autowired
         PersonalRepository personalRepository;
+        @Autowired
+        private Environment envl;
+        @Autowired
+        SucursalesRepository sucursalesRepository;
 
 	@RequestMapping("/")
 	public String home(Model model) {
@@ -83,7 +88,26 @@ public class PagesController {
 	public String sii(Map<String, Object> model) {
 		model.put("message", "Vas muy bien !!!");
 		return "sii";
+	} 
+        
+         @RequestMapping("/sucursales")
+	public String home3(Model model) {
+		model.addAttribute("site_urlport", envl.getProperty("site.urlport") );
+		//System.out.println( env.getProperty("site.urlport") );
+               model.addAttribute("message", "Hola Mundo !!");
+                sucursalesRepository.findAll().forEach((p) -> {
+                    System.out.println(p.nombre);
+            });
+		model.addAttribute("sucursales", sucursalesRepository.findAll());
+		return "sucursales";
+                
+        }
+        @RequestMapping("/siii")
+	public String siii(Map<String, Object> model) {
+		model.put("message", "Vas muy bien !!!");
+		return "siii";
 	}        
+
 
 
 }

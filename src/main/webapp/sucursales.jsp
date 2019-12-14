@@ -14,7 +14,7 @@
         <div class="container">
             <header>
                 <h2>${message}</h2>
-                Click para el siguiente modulo <strong><a href="/sucursales">Sucursales</a></strong> to visit another page.
+                Click para el siguiente modulo <strong><a href="/next">next</a></strong> to visit another page.
                 <br>
                 <a href="https://datatables.net/examples/api/select_single_row.html">
                     https://datatables.net/examples/api/select_single_row.html
@@ -23,13 +23,17 @@
             <form method="post" >
                 <label>Nombre</label>
                 <input type="text" name="nombre" >
-                <label>Estado</label>
-                <input type="text" name="estado" >
-                <label>Numero</label>
-                <input type="text" name="numero" >
+                <label>Ciudad</label>
+                <input type="text" name="ciudad" >
+                <label>Direccion</label>
+                <input type="text" name="direccion" >
+                <label>Telefono</label>
+                <input type="text" name="telefono" >
+                <label>Gerencia</label>
+                <input type="text" name="gerencia" >
                 <button type="button" onclick="save()"  >Guardar</button>
             </form>
-            <h1>Proveedores</h1>
+            <h1>Sucursales</h1>
         
           <h2>Empleando los parámetros Model</h2>
             <div class="starter-template">
@@ -37,16 +41,20 @@
                     <tr>
                      <th>Id</th>
                      <th>Nombre</th>
-                     <th>Estado</th>
-                     <th>Numero</th>
+                     <th>Ciudad</th>
+                     <th>Direccion</th>
+                     <th>Telefono</th>
+                     <th>Gerencia</th>
                     </tr>
                    
-                    <c:forEach var="proveedor" items="${proveedores}">
+                    <c:forEach var="sucursal" items="${sucursales}">
                      <tr>
-                      <td>${proveedor.id}</td>
-                      <td>${proveedor.nombre}</td>
-                      <td>${proveedor.estado}</td>
-                       <td>${proveedor.numero}</td>
+                      <td>${sucursal.id}</td>
+                      <td>${sucursal.nombre}</td>
+                      <td>${sucursal.ciudad}</td>
+                       <td>${sucursal.direccion}</td>
+                       <td>${sucursal.telefono}</td>
+                       <td>${sucursal.gerencia}</td>
                      </tr>
                     </c:forEach>
                 </table>
@@ -55,22 +63,26 @@
             <h2>Empleando la rest Api</h2>
             <button id="btnDelete" type="button" >Borrar fila seleccionada</button>
             <div class="starter-template">
-                <table id="proveedoresTable" class="display"> 
+                <table id="sucursalesTable" class="display"> 
                     
                    <thead>
                         <tr>
                             <th>Id</th>
                             <th>Nombre</th>
-                            <th>Estado</th>
-                            <th>Numero</th>
+                            <th>Ciudad</th>
+                            <th>Direccion</th>
+                            <th>Telfono</th>
+                            <th>Gerencia</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>id</th>
                             <th>nombre</th>
-                            <th>estado</th>
-                            <th>numero</th>
+                            <th>ciudad</th>
+                            <th>direccion</th>
+                            <th>telefono</th>
+                            <th>gerencia</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -81,7 +93,7 @@
         <script src="jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="datatables_1.10.12/jquery.dataTables.min.js"></script>
-        <script src="${contextPath}/resources/js/datatableproveedores.js"></script>
+        <script src="${contextPath}/resources/js/datatablesucursales.js"></script>
         <script>
             /*
             (function ($) {
@@ -109,14 +121,14 @@
                     console.log (urlport);
                     $.ajax({
                         //url: urlport + "/api/productos", // verificar si se utiliza la ruta y puerto desde application.properties
-                        url: "/api/proveedores",
+                        url: "/api/sucursales",
                         type: 'POST', dataType: 'json',
                         contentType: "application/json; charset=utf-8",
                         data: dataForm,
                         success: function(data) {
                             console.log ( data.nombre );
                             //$('#productosTable').dataTable().fnClearTable(); // borrar todo
-                            $('#proveedoresTable').dataTable().fnAddData(data);
+                            $('#sucursalesTable').dataTable().fnAddData(data);
                         }, 
                         error: function( jqXHR, textStatus, errorThrown ) {
                             alert ("error: " + textStatus );
@@ -127,8 +139,8 @@
                 }
 
                 $(document).ready(function() {
-                    var table = $('#proveedoresTable').DataTable();
-                    $('#proveedoresTable tbody').on( 'click', 'tr', function () {
+                    var table = $('#sucursalesTable').DataTable();
+                    $('#sucursalesTable tbody').on( 'click', 'tr', function () {
                         if ( $(this).hasClass('selected') ) {
                             $(this).removeClass('selected');
                         }

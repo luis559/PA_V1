@@ -41,9 +41,9 @@ CREATE TABLE IF NOT EXISTS `personal` (
   `edad` varchar(255) DEFAULT NULL,
   `celular` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla demo.personal: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla demo.personal: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `personal` DISABLE KEYS */;
 INSERT INTO `personal` (`id`, `created_at`, `nombre`, `cargo`, `sueldo`, `edad`, `celular`) VALUES
 	(1, NULL, 'luis', 'almacenista', '5,000', '20', '9191456325');
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `descripcion` varchar(255) DEFAULT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla demo.productos: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
@@ -107,6 +107,32 @@ BEGIN
   SELECT p.* FROM proveedores p where p.nombre like concat("%",arg,"%") or estado like concat("%",arg,"%") or numero like concat("%",arg,"%");
 END//
 DELIMITER ;
+
+-- Volcando estructura para procedimiento demo.spsucursalessearch
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spsucursalessearch`()
+BEGIN
+SELECT p.* FROM sucursales p where p.nombre like concat("%",arg,"%") or ciudad like concat("%",arg,"%") or direccion like concat("%",arg,"%") or telefono like concat("%",arg,"%") or gerencia like concat("%",arg,"%");
+END//
+DELIMITER ;
+
+-- Volcando estructura para tabla demo.sucursales
+CREATE TABLE IF NOT EXISTS `sucursales` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `ciudad` varchar(255) DEFAULT NULL,
+  `direccion` varchar(255) DEFAULT NULL,
+  `telefono` varchar(255) DEFAULT NULL,
+  `gerencia` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla demo.sucursales: ~1 rows (aproximadamente)
+/*!40000 ALTER TABLE `sucursales` DISABLE KEYS */;
+INSERT INTO `sucursales` (`id`, `created_at`, `nombre`, `ciudad`, `direccion`, `telefono`, `gerencia`) VALUES
+	(1, NULL, 'las palmas', 'jalisco', 'fraccionamiento num 25', '6731425', 'mateo');
+/*!40000 ALTER TABLE `sucursales` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
